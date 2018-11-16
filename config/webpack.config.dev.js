@@ -68,7 +68,10 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     },
   ];
   if (preProcessor) {
-    loaders.push(require.resolve(preProcessor));
+    loaders.push({
+      loader: require.resolve(preProcessor),
+      options: cssOptions,
+    });
   }
   return loaders;
 };
@@ -309,6 +312,7 @@ module.exports = {
                 importLoaders: 2,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
+                includePaths: [paths.styles]
               },
               'sass-loader'
             ),
